@@ -170,40 +170,33 @@ void PrintGetUserNameEx() {
 
 void PrintGetPerformanceInfo() {
 
-//#include <iostream>
-//#include <windows.h>
-//#include <psapi.h> // Required for GetPerformanceInfo and PERFORMANCE_INFORMATION
-//
-//	int main() {
-//		PERFORMANCE_INFORMATION perfInfo;
-//
-//		// Set the size of the structure before calling the function
-//		perfInfo.cb = sizeof(PERFORMANCE_INFORMATION);
-//
-//		// Call GetPerformanceInfo to retrieve system performance data
-//		if (GetPerformanceInfo(&perfInfo, sizeof(PERFORMANCE_INFORMATION))) {
-//			// Convert page-based values to bytes using PageSize
-//			ULONGLONG totalPhysicalMemoryBytes = (ULONGLONG)perfInfo.PhysicalTotal * perfInfo.PageSize;
-//			ULONGLONG availablePhysicalMemoryBytes = (ULONGLONG)perfInfo.PhysicalAvailable * perfInfo.PageSize;
-//			ULONGLONG systemCacheBytes = (ULONGLONG)perfInfo.SystemCache * perfInfo.PageSize;
-//
-//			std::cout << "System Performance Information:" << std::endl;
-//			std::cout << "  Total Physical Memory: " << totalPhysicalMemoryBytes / (1024 * 1024) << " MB" << std::endl;
-//			std::cout << "  Available Physical Memory: " << availablePhysicalMemoryBytes / (1024 * 1024) << " MB" << std::endl;
-//			std::cout << "  System Cache Size: " << systemCacheBytes / (1024 * 1024) << " MB" << std::endl;
-//			std::cout << "  Current Processes: " << perfInfo.ProcessCount << std::endl;
-//			std::cout << "  Current Threads: " << perfInfo.ThreadCount << std::endl;
-//			std::cout << "  Current Handles: " << perfInfo.HandlesCount << std::endl;
-//			std::cout << "  Commit Limit (Pages): " << perfInfo.CommitLimit << std::endl;
-//			std::cout << "  Commit Total (Pages): " << perfInfo.CommitTotal << std::endl;
-//		}
-//		else {
-//			std::cerr << "Failed to retrieve performance information. Error code: " << GetLastError() << std::endl;
-//		}
-//
-//		return 0;
-//	}
+	PERFORMANCE_INFORMATION perfInfo;
 
+	// Set the size of the structure before calling the function
+	perfInfo.cb = sizeof(PERFORMANCE_INFORMATION);
+
+	printf("\n *** PrintGetPerformanceInfo *** \n\n");
+	// Call GetPerformanceInfo to retrieve system performance data
+	if (GetPerformanceInfo(&perfInfo, sizeof(PERFORMANCE_INFORMATION))) {
+		// Convert page-based values to bytes using PageSize
+		ULONGLONG totalPhysicalMemoryBytes = (ULONGLONG)perfInfo.PhysicalTotal * perfInfo.PageSize;
+		ULONGLONG availablePhysicalMemoryBytes = (ULONGLONG)perfInfo.PhysicalAvailable * perfInfo.PageSize;
+		ULONGLONG systemCacheBytes = (ULONGLONG)perfInfo.SystemCache * perfInfo.PageSize;
+
+		std::cout << "System Performance Information:" << std::endl;
+		std::cout << "Total Physical Memory: " << totalPhysicalMemoryBytes / (1024 * 1024) << " MB" << std::endl;
+		std::cout << "Available Physical Memory: " << availablePhysicalMemoryBytes / (1024 * 1024) << " MB" << std::endl;
+		std::cout << "System Cache Size: " << systemCacheBytes / (1024 * 1024) << " MB" << std::endl;
+		std::cout << "Current Processes: " << perfInfo.ProcessCount << std::endl;
+		std::cout << "Current Threads: " << perfInfo.ThreadCount << std::endl;
+		std::cout << "Current Handles: " << perfInfo.HandlesCount << std::endl;
+		std::cout << "Commit Limit (Pages): " << perfInfo.CommitLimit << std::endl;
+		std::cout << "Commit Total (Pages): " << perfInfo.CommitTotal << std::endl;
+	}
+	else {
+		std::cerr << "Failed to retrieve performance information. Error code: " << GetLastError() << std::endl;
+	}
+	printf("----------------------------------------------------\n");
 }
 
 int main() {
